@@ -1,0 +1,13 @@
+name: Arena
+version: '${project.version}'
+main: arena.MainArena
+api-version: 1.18
+
+commands:
+  +dvere:
+  +obchodnik:
+  +mecNaObchodnika:
+  +monsterSwitch:
+  +resetMonsterSwitch:
+  +znicMonstra:
+
