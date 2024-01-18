@@ -1,6 +1,10 @@
 package arena.zarizeni.dvere_areny;
 
-import arena.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.Uloziste;
+import org.bukkit.Location;
+
+import java.util.Set;
+
 import static arena.zarizeni.dvere_areny.DvereAreny.DVERE_DO_ARENY_ZNACKA;
 
 
@@ -14,8 +18,8 @@ public class InicializaceDveriDoAreny {
     }
 
     public void inicializace() {
-        var lokaceBlokuDveri = uloziste.nacti(DVERE_DO_ARENY_ZNACKA);
-        for (var lokace : lokaceBlokuDveri) {
+        Set<Location> lokaceBlokuDveri = uloziste.nacti(DVERE_DO_ARENY_ZNACKA);
+        for (Location lokace : lokaceBlokuDveri) {
             dvereAreny.pridejDvere(lokace.getBlock());
         }
     }

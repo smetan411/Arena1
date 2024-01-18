@@ -1,6 +1,6 @@
 package arena.zarizeni.monster_switch;
 
-import arena.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.Uloziste;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.metadata.FixedMetadataValue;

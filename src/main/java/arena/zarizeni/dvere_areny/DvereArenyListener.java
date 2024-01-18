@@ -7,7 +7,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.plugin.Plugin;
 
 import static arena.zarizeni.dvere_areny.DvereAreny.DVERE_DO_ARENY_ZNACKA;
@@ -51,8 +50,8 @@ public final class DvereArenyListener implements Listener {
         if (!blockMetadata.isEmpty()) {
             var dolniCast = e.getBlock();
             var horniCast = dolniCast.getWorld().getBlockAt(dolniCast.getLocation().add(0, 1, 0));
-            dvereAreny.odeber(dolniCast);
-            dvereAreny.odeber(horniCast);
+            dvereAreny.odeberDvere(dolniCast);
+            dvereAreny.odeberDvere(horniCast);
         }
     }
 }

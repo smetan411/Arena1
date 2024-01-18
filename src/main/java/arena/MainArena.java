@@ -8,7 +8,7 @@ import arena.listenery.*;
 import arena.monstra.MonstraStav;
 import arena.monstra.TovarnaNaZombiky;
 import arena.monstra.VlnyMonster;
-import arena.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.Uloziste;
 import arena.zarizeni.dvere_areny.DvereAreny;
 import arena.zarizeni.dvere_areny.DvereArenyCommands;
 import arena.zarizeni.dvere_areny.DvereArenyListener;
@@ -25,15 +25,19 @@ public class MainArena extends JavaPlugin {
     public void onEnable() {
 
         var world = getServer().getWorlds().get(0);
+        var uloziste = new Uloziste(world, this);
+        var monstraStav = new MonstraStav(world);
+
         var  tovarnaNaZombiky = new TovarnaNaZombiky(getDataFolder());
         var tovarnaNaVlny = new VlnyMonster(tovarnaNaZombiky);
-        var uloziste = new Uloziste(world, this);
+
         var dvereAreny = new DvereAreny(this, uloziste);
         var dvereArenyListener = new DvereArenyListener(dvereAreny, this);
+        new InicializaceDveriDoAreny(dvereAreny, uloziste).inicializace();
+
         var monsterSwitch = new MonsterSwitchListener(dvereAreny, tovarnaNaVlny, uloziste, this);
         new InicializaceMonsterSwitche(uloziste, world, this).inicializace();
-        new InicializaceDveriDoAreny(dvereAreny, uloziste).inicializace();
-        var monstraStav = new MonstraStav(world);
+
 
         //listenery
         getServer().getPluginManager().registerEvents(monsterSwitch, this);

@@ -15,7 +15,7 @@ public class DvereArenyCommands implements CommandExecutor {
         if (!(commandSender instanceof Player)) return false;
         var player = (Player) commandSender;
 
-        var dvere = new ItemStack(Material.OAK_DOOR, 1);
+        ItemStack dvere = new ItemStack(Material.OAK_DOOR, 1);
         var itemMeta = dvere.getItemMeta();
         if (itemMeta == null) return false;
         itemMeta.setDisplayName(DvereAreny.JMENO_DVERI_DO_ARENY);

@@ -1,6 +1,6 @@
 package arena.zarizeni.dvere_areny;
 
-import arena.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.Uloziste;
 import com.google.common.collect.Lists;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Door;
@@ -42,7 +42,7 @@ public final class DvereAreny {
         uloziste.pridej(DVERE_DO_ARENY_ZNACKA, block.getLocation());
     }
 
-    public void odeber(Block block) {
+    public void odeberDvere(Block block) {
         uloziste.odeber(DVERE_DO_ARENY_ZNACKA, block.getLocation());
         block.removeMetadata(DVERE_DO_ARENY_ZNACKA, plugin);
     }

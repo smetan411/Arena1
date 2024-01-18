@@ -1,7 +1,7 @@
 package arena.zarizeni.monster_switch;
 
 import arena.monstra.VlnyMonster;
-import arena.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.Uloziste;
 import arena.zarizeni.dvere_areny.DvereAreny;
 import com.google.common.collect.Sets;
 import org.bukkit.Material;
