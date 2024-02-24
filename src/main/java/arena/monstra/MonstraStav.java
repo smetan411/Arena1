@@ -16,16 +16,15 @@ public final class MonstraStav {
         this.world = world;
     }
 
-    public List<LivingEntity> getMonsters() {
-        return world.getLivingEntities().stream().filter(entity -> jeMonstrum(entity)).collect(Collectors.toList());
-    }
-
     public boolean jeMonstrum(LivingEntity monstrum) {
         var jmeno = monstrum.getCustomName();
         if (Strings.isNullOrEmpty(jmeno)) return false;
         return jmeno.startsWith(ZOMBIE_NAME);
-
     }
+    public List<LivingEntity> getMonsters() {
+        return world.getLivingEntities().stream().filter(entity -> jeMonstrum(entity)).collect(Collectors.toList());
+    }
+
     public boolean jsouMonstraMrtva() {
         return getMonsters().isEmpty();
     }

@@ -12,7 +12,7 @@ import static arena.tovarny.TovarnaNaZbrane.FROZEN_SWORD;
 import static arena.tovarny.TovarnaNaZbrane.HEALING_SWORD;
 
 
-public class Zbrane implements Listener {
+public class ZbraneListener implements Listener {
 
     @EventHandler
     public static void zbraneEvent(EntityDamageByEntityEvent event) {

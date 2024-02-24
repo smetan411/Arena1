@@ -46,7 +46,7 @@ public class MainArena extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PripojeniRespawn(), this);
         getServer().getPluginManager().registerEvents(dvereArenyListener, this);
         getServer().getPluginManager().registerEvents(new ObchodnikNesmrtelnost(), this);
-        getServer().getPluginManager().registerEvents(new Zbrane(), this);
+        getServer().getPluginManager().registerEvents(new ZbraneListener(), this);
 
         //commandy
         getCommand("+obchodnik").setExecutor(new Obchodnik());

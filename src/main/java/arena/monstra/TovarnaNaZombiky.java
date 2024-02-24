@@ -11,29 +11,39 @@ import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public final class TovarnaNaZombiky {
 
     public final static String ZOMBIE_NAME = "Zombie";
+    public final static String ZOMBIE_CONFIG_FILE_NAME = "zombies.json";
     //mapujeme level zombie na definici zombie
     private MonsterDefinition[]  definiceZombiku;
 
-    public TovarnaNaZombiky(File dataAdresar) {
-        //nahrajeme zombie z jsonu
-        String pathToJsonDefinition = dataAdresar.getPath() + "/zombies.json";
-        String definiceZombikuJson = null;
+    public TovarnaNaZombiky(File dataAdresar) {        //nahrajeme zombie z jsonu
+        Path pathToJsonDefinition = Path.of(dataAdresar.getPath(), ZOMBIE_CONFIG_FILE_NAME);
         try {
-            definiceZombikuJson = Files.readString(Path.of(pathToJsonDefinition));
+            if (Files.notExists(pathToJsonDefinition)) {
+                copyZombieConfigFromJar(pathToJsonDefinition);
+            }
+            String definiceZombikuJson = Files.readString(pathToJsonDefinition);
+            Gson gson = new Gson();
+            definiceZombiku = gson.fromJson(definiceZombikuJson, MonsterDefinition[].class);
         } catch (IOException e) {
-            throw new RuntimeException("Nenalezen soubor s definici zombiku: " + pathToJsonDefinition);
+            throw new RuntimeException(e);
         }
-        Gson gson = new Gson();
-        definiceZombiku = gson.fromJson(definiceZombikuJson, MonsterDefinition[].class);
+    }
+
+    private void copyZombieConfigFromJar(Path targetPath) throws IOException
+    {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(ZOMBIE_CONFIG_FILE_NAME)) {
+            Files.createDirectory(targetPath.getParent());
+            Files.copy(is, targetPath);
+        }
     }
 
     public void createZombie(Location location, int level, int pocet) {
