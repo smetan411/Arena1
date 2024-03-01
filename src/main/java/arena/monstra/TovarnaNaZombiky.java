@@ -24,13 +24,13 @@ public final class TovarnaNaZombiky {
     //mapujeme level zombie na definici zombie
     private MonsterDefinition[]  definiceZombiku;
 
-    public TovarnaNaZombiky(File dataAdresar) {        //nahrajeme zombie z jsonu
-        Path pathToJsonDefinition = Path.of(dataAdresar.getPath(), ZOMBIE_CONFIG_FILE_NAME);
+    public TovarnaNaZombiky(File dataAdresar) {        //nahrajeme zombie z jsonu, v serveru, plugins, Arena
+        Path pathZombieJson = Path.of(dataAdresar.getPath(), ZOMBIE_CONFIG_FILE_NAME);
         try {
-            if (Files.notExists(pathToJsonDefinition)) {
-                copyZombieConfigFromJar(pathToJsonDefinition);
+            if (Files.notExists(pathZombieJson)) {
+                copyZombieConfigFromJar(pathZombieJson);
             }
-            String definiceZombikuJson = Files.readString(pathToJsonDefinition);
+            String definiceZombikuJson = Files.readString(pathZombieJson);
             Gson gson = new Gson();
             definiceZombiku = gson.fromJson(definiceZombikuJson, MonsterDefinition[].class);
         } catch (IOException e) {

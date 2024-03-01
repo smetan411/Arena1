@@ -15,12 +15,13 @@ public class MonsterSwitchCommand implements CommandExecutor {
     public boolean onCommand( CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         var player = (Player) commandSender;
-
-        var monsterSwitch = new ItemStack(Material.LEVER, 1);
-        var itemMeta = monsterSwitch.getItemMeta();
-        itemMeta.setDisplayName(MONSTER_SWITCH_NAME);
-        monsterSwitch.setItemMeta(itemMeta);
-        player.getInventory().addItem(monsterSwitch);
+        if (player.isOp()) {
+            var monsterSwitch = new ItemStack(Material.LEVER, 1);
+            var itemMeta = monsterSwitch.getItemMeta();
+            itemMeta.setDisplayName(MONSTER_SWITCH_NAME);
+            monsterSwitch.setItemMeta(itemMeta);
+            player.getInventory().addItem(monsterSwitch);
+        }
         return true;
     }
 }

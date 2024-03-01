@@ -17,15 +17,16 @@ public class MecNaObchodnika implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         var player = (Player) commandSender;
-
-        var mecNaObchodnika = new ItemStack(Material.GOLDEN_SWORD);
-        var itemMeta = mecNaObchodnika.getItemMeta();
-        itemMeta.setDisplayName(MEC_NA_OBCHODNIKA);
-        itemMeta.setUnbreakable(true);
-        AttributeModifier attributeModifier = new AttributeModifier("Damage", 5, AttributeModifier.Operation.ADD_NUMBER);
-        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, attributeModifier);
-        mecNaObchodnika.setItemMeta(itemMeta);
-        player.getInventory().addItem(mecNaObchodnika);
+        if (player.isOp()) {
+            var mecNaObchodnika = new ItemStack(Material.GOLDEN_SWORD);
+            var itemMeta = mecNaObchodnika.getItemMeta();
+            itemMeta.setDisplayName(MEC_NA_OBCHODNIKA);
+            itemMeta.setUnbreakable(true);
+            AttributeModifier attributeModifier = new AttributeModifier("Damage", 5, AttributeModifier.Operation.ADD_NUMBER);
+            itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, attributeModifier);
+            mecNaObchodnika.setItemMeta(itemMeta);
+            player.getInventory().addItem(mecNaObchodnika);
+        }
         return true;
     }
 }

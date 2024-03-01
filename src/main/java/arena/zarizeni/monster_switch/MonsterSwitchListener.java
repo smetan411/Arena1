@@ -1,8 +1,9 @@
 package arena.zarizeni.monster_switch;
 
+import arena.monstra.MonstraStav;
 import arena.monstra.VlnyMonster;
-import arena.zarizeni.uloziste_dat.Uloziste;
 import arena.zarizeni.dvere_areny.DvereAreny;
+import arena.zarizeni.uloziste_dat.Uloziste;
 import com.google.common.collect.Sets;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -19,27 +20,32 @@ import static arena.zarizeni.monster_switch.MonsterSwitchCommand.MONSTER_SWITCH_
 
 public final class MonsterSwitchListener implements Listener {
 
-    final static String MONSTER_SWITCH_ZNACKA = "MONSTER_SWITCH_ZNACKA";
+    public final static String MONSTER_SWITCH_ZNACKA = "MONSTER_SWITCH_ZNACKA";
 
     private final Plugin plugin;
     private final DvereAreny dvere;
     private final VlnyMonster vlnyMonster;
     private final Uloziste uloziste;
+    private MonstraStav monstraStav;
 
-    public MonsterSwitchListener(DvereAreny dvere, VlnyMonster vlnyMonster, Uloziste uloziste, Plugin plugin) {
+    public MonsterSwitchListener(Plugin plugin, DvereAreny dvere, VlnyMonster vlnyMonster, Uloziste uloziste, MonstraStav monstraStav) {
         this.plugin = plugin;
         this.dvere = dvere;
         this.vlnyMonster = vlnyMonster;
         this.uloziste = uloziste;
+        this.monstraStav = monstraStav;
     }
 
     @EventHandler
     public void spawnMonsters(PlayerInteractEvent e) {
-        if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return; //udalost PlayerInteractEvent se pusti i pri zniceni a polozeni bloku, timto zabranime vygenerovani monster pro zniceni
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK)
+            return; //udalost PlayerInteractEvent se pusti i pri zniceni a polozeni bloku, timto zabranime vygenerovani monster pro zniceni
         if (e.getClickedBlock().getType() != Material.LEVER) return; // zabranime pokracovani pri olozeni blocku
+        if (!monstraStav.jsouMonstraMrtva()) return;
 
         var block = e.getClickedBlock();
         if (block == null) return;
+
         var blockMetadata = block.getMetadata(MONSTER_SWITCH_ZNACKA);
         if (!blockMetadata.isEmpty()) {
             dvere.zavriDvere();

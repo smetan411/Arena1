@@ -14,13 +14,14 @@ public class DvereArenyCommands implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
         var player = (Player) commandSender;
-
-        ItemStack dvere = new ItemStack(Material.OAK_DOOR, 1);
-        var itemMeta = dvere.getItemMeta();
-        if (itemMeta == null) return false;
-        itemMeta.setDisplayName(DvereAreny.JMENO_DVERI_DO_ARENY);
-        dvere.setItemMeta(itemMeta);
-        player.getInventory().addItem(dvere);
+        if(player.isOp()) {
+            ItemStack dvere = new ItemStack(Material.OAK_DOOR, 1);
+            var itemMeta = dvere.getItemMeta();
+            if (itemMeta == null) return false;
+            itemMeta.setDisplayName(DvereAreny.JMENO_DVERI_DO_ARENY);
+            dvere.setItemMeta(itemMeta);
+            player.getInventory().addItem(dvere);
+        }
         return true;
     }
 }

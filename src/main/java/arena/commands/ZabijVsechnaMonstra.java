@@ -17,8 +17,9 @@ public class ZabijVsechnaMonstra implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         var monstra = monstraStav.getMonsters();
-        monstra.forEach(monstrum -> monstrum.damage(2000));
+        if (commandSender.isOp()) {
+            monstra.forEach(monstrum -> monstrum.damage(2000));
+        }
         return true;
     }
-
 }

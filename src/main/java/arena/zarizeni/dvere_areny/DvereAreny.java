@@ -44,6 +44,11 @@ public final class DvereAreny {
 
     public void odeberDvere(Block block) {
         uloziste.odeber(DVERE_DO_ARENY_ZNACKA, block.getLocation());
+        dvere.remove(block);
         block.removeMetadata(DVERE_DO_ARENY_ZNACKA, plugin);
+    }
+
+    public void clear() {
+        dvere.clear();
     }
 }

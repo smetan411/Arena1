@@ -3,12 +3,12 @@ package arena;
 
 import arena.commands.MecNaObchodnika;
 import arena.commands.Obchodnik;
+import arena.commands.ResetHry;
 import arena.commands.ZabijVsechnaMonstra;
 import arena.listenery.*;
 import arena.monstra.MonstraStav;
 import arena.monstra.TovarnaNaZombiky;
 import arena.monstra.VlnyMonster;
-import arena.zarizeni.uloziste_dat.Uloziste;
 import arena.zarizeni.dvere_areny.DvereAreny;
 import arena.zarizeni.dvere_areny.DvereArenyCommands;
 import arena.zarizeni.dvere_areny.DvereArenyListener;
@@ -17,6 +17,7 @@ import arena.zarizeni.monster_switch.InicializaceMonsterSwitche;
 import arena.zarizeni.monster_switch.MonsterSwitchCommand;
 import arena.zarizeni.monster_switch.MonsterSwitchListener;
 import arena.zarizeni.monster_switch.ResetSwitchCommand;
+import arena.zarizeni.uloziste_dat.Uloziste;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainArena extends JavaPlugin {
@@ -28,14 +29,14 @@ public class MainArena extends JavaPlugin {
         var uloziste = new Uloziste(world, this);
         var monstraStav = new MonstraStav(world);
 
-        var  tovarnaNaZombiky = new TovarnaNaZombiky(getDataFolder());
+        var tovarnaNaZombiky = new TovarnaNaZombiky(getDataFolder());
         var tovarnaNaVlny = new VlnyMonster(tovarnaNaZombiky);
 
         var dvereAreny = new DvereAreny(this, uloziste);
         var dvereArenyListener = new DvereArenyListener(dvereAreny, this);
         new InicializaceDveriDoAreny(dvereAreny, uloziste).inicializace();
 
-        var monsterSwitch = new MonsterSwitchListener(dvereAreny, tovarnaNaVlny, uloziste, this);
+        var monsterSwitch = new MonsterSwitchListener(this, dvereAreny, tovarnaNaVlny, uloziste, monstraStav);
         new InicializaceMonsterSwitche(uloziste, world, this).inicializace();
 
 
@@ -55,6 +56,6 @@ public class MainArena extends JavaPlugin {
         getCommand("+dvere").setExecutor(new DvereArenyCommands());
         getCommand("+znicMonstra").setExecutor(new ZabijVsechnaMonstra(monstraStav));
         getCommand("+mecNaObchodnika").setExecutor(new MecNaObchodnika());
-
+        getCommand("+resetHry").setExecutor(new ResetHry(dvereAreny, uloziste));
     }
 }

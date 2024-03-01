@@ -15,7 +15,9 @@ public class ResetSwitchCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand( CommandSender commandSender,  Command command, String s,  String[] strings) {
-        vlnyMonster.reset();
+        if (commandSender.isOp()) {
+            vlnyMonster.reset();
+        }
         return true;
     }
 }
