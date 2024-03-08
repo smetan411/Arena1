@@ -126,10 +126,21 @@ public class TovarnaNaZbroje {
         var itemMeta = chainMaleHelmet.getItemMeta();
         itemMeta.setUnbreakable(true);
         itemMeta.setDisplayName("Plate Legins");
-        AttributeModifier attributeModifier = new AttributeModifier("Armor", 2, AttributeModifier.Operation.ADD_NUMBER);
+        AttributeModifier attributeModifier = new AttributeModifier("Armor", 3, AttributeModifier.Operation.ADD_NUMBER);
         itemMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, attributeModifier);
         chainMaleHelmet.setItemMeta(itemMeta);
         return chainMaleHelmet;
+    }
+
+    public ItemStack vyrobPlateBoots() {
+        var chainMaleBoots = new ItemStack(Material.IRON_BOOTS, 1);
+        var itemMeta = chainMaleBoots.getItemMeta();
+        itemMeta.setUnbreakable(true);
+        itemMeta.setDisplayName("Plate Boots");
+        AttributeModifier attributeModifier = new AttributeModifier("Armor", 3, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ARMOR, attributeModifier);
+        chainMaleBoots.setItemMeta(itemMeta);
+        return chainMaleBoots;
     }
 
 

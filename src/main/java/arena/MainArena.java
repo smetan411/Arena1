@@ -1,10 +1,7 @@
 package arena;
 
 
-import arena.commands.MecNaObchodnika;
-import arena.commands.Obchodnik;
-import arena.commands.ResetHry;
-import arena.commands.ZabijVsechnaMonstra;
+import arena.commands.*;
 import arena.listenery.*;
 import arena.monstra.MonstraStav;
 import arena.monstra.TovarnaNaZombiky;
@@ -42,7 +39,7 @@ public class MainArena extends JavaPlugin {
 
         //listenery
         getServer().getPluginManager().registerEvents(monsterSwitch, this);
-        getServer().getPluginManager().registerEvents(new OdmenaZaZabitiMonstra(monstraStav), this);
+        getServer().getPluginManager().registerEvents(new OdmenaZaZabitiMonstra(monstraStav, tovarnaNaZombiky), this);
         getServer().getPluginManager().registerEvents(new SmrtMonstra(dvereAreny, monstraStav), this);
         getServer().getPluginManager().registerEvents(new PripojeniRespawn(), this);
         getServer().getPluginManager().registerEvents(dvereArenyListener, this);
@@ -50,7 +47,8 @@ public class MainArena extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ZbraneListener(), this);
 
         //commandy
-        getCommand("+obchodnik").setExecutor(new Obchodnik());
+        getCommand("+obchodnikZbrane").setExecutor(new ObchodnikZbrane());
+        getCommand("+obchodnikJidlo").setExecutor(new ObchodnikJidlo());
         getCommand("+monsterSwitch").setExecutor(new MonsterSwitchCommand());
         getCommand("+resetMonsterSwitch").setExecutor(new ResetSwitchCommand(tovarnaNaVlny));
         getCommand("+dvere").setExecutor(new DvereArenyCommands());

@@ -5,7 +5,8 @@ api-version: 1.18
 
 commands:
   +dvere:
-  +obchodnik:
+  +obchodnikJidlo:
+  +obchodnikZbrane:
   +mecNaObchodnika:
   +monsterSwitch:
   +resetMonsterSwitch:

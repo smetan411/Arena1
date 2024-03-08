@@ -21,18 +21,22 @@ public final class TovarnaNaZombiky {
 
     public final static String ZOMBIE_NAME = "Zombie";
     public final static String ZOMBIE_CONFIG_FILE_NAME = "zombies.json";
+
     //mapujeme level zombie na definici zombie
     private MonsterDefinition[]  definiceZombiku;
 
+//  dataAdresar je nazev souboru, ke kteremu chceme cestu
     public TovarnaNaZombiky(File dataAdresar) {        //nahrajeme zombie z jsonu, v serveru, plugins, Arena
         Path pathZombieJson = Path.of(dataAdresar.getPath(), ZOMBIE_CONFIG_FILE_NAME);
         try {
             if (Files.notExists(pathZombieJson)) {
                 copyZombieConfigFromJar(pathZombieJson);
             }
+            // co ty tri radky presne delaji ?
             String definiceZombikuJson = Files.readString(pathZombieJson);
             Gson gson = new Gson();
             definiceZombiku = gson.fromJson(definiceZombikuJson, MonsterDefinition[].class);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -40,6 +44,8 @@ public final class TovarnaNaZombiky {
 
     private void copyZombieConfigFromJar(Path targetPath) throws IOException
     {
+
+        // co presne to dela ?
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(ZOMBIE_CONFIG_FILE_NAME)) {
             Files.createDirectory(targetPath.getParent());
             Files.copy(is, targetPath);
@@ -92,6 +98,7 @@ public final class TovarnaNaZombiky {
                 zombie.setHealth(health);
             }
             zombie.setCustomName(ZOMBIE_NAME + " LVL " + level);
+
         }
     }
 }

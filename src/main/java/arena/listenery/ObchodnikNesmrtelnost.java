@@ -1,7 +1,7 @@
 package arena.listenery;
 
 
-import arena.commands.Obchodnik;
+import arena.commands.ObchodnikZbrane;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +17,7 @@ public class ObchodnikNesmrtelnost implements Listener {
 
         var utocnik = (Player) udalost.getDamager();
 
-        if ((Obchodnik.JMENO_OBCHODNIKA.equals(udalost.getEntity().getCustomName())) &&
+        if ((ObchodnikZbrane.JMENO_OBCHODNIKA.equals(udalost.getEntity().getCustomName())) &&
                 (!(MEC_NA_OBCHODNIKA.equals(utocnik.getInventory().getItemInMainHand().getItemMeta().getDisplayName())))) {
             udalost.setCancelled(true);
         }

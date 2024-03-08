@@ -65,17 +65,7 @@ public class TovarnaNaZbrane {
         return stit;
     }
 
-    public ItemStack vyrobZlateJabko() {
-        return new ItemStack(Material.GOLDEN_APPLE, 1);
-    }
 
-    public ItemStack vyrobOcarovaneZlateJablko() {
-        return new ItemStack(Material.ENCHANTED_GOLDEN_APPLE, 1);
-    }
-
-    public ItemStack vyrobLapizLazuli() {
-        return new ItemStack(Material.LAPIS_LAZULI);
-    }
 
     //ARTEFAKTY
     public ItemStack vyrobFrozenSword() {
