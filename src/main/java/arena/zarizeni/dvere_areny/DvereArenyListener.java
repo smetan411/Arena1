@@ -1,6 +1,5 @@
 package arena.zarizeni.dvere_areny;
 
-import arena.zarizeni.uloziste_dat.Uloziste;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

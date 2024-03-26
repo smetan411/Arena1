@@ -19,7 +19,7 @@ public class TovarnaNaJidlo {
     }
 
     public ItemStack vyrobChleba() {
-        return new ItemStack(Material.BREAD, 8);
+        return new ItemStack(Material.BREAD  , 8);
     }
 
     public ItemStack vyrobJablko() {

@@ -14,16 +14,25 @@ import arena.zarizeni.monster_switch.InicializaceMonsterSwitche;
 import arena.zarizeni.monster_switch.MonsterSwitchCommand;
 import arena.zarizeni.monster_switch.MonsterSwitchListener;
 import arena.zarizeni.monster_switch.ResetSwitchCommand;
-import arena.zarizeni.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.UlozisteMap;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class MainArena extends JavaPlugin {
 
     @Override
     public void onEnable() {
 
+        UlozisteMap uloziste = new UlozisteMap(getDataFolder());
+        //var uloziste = new UlozisteBlok(world, this);
+
         var world = getServer().getWorlds().get(0);
-        var uloziste = new Uloziste(world, this);
         var monstraStav = new MonstraStav(world);
 
         var tovarnaNaZombiky = new TovarnaNaZombiky(getDataFolder());
@@ -35,7 +44,6 @@ public class MainArena extends JavaPlugin {
 
         var monsterSwitch = new MonsterSwitchListener(this, dvereAreny, tovarnaNaVlny, uloziste, monstraStav);
         new InicializaceMonsterSwitche(uloziste, world, this).inicializace();
-
 
         //listenery
         getServer().getPluginManager().registerEvents(monsterSwitch, this);
