@@ -15,25 +15,21 @@ import arena.zarizeni.monster_switch.MonsterSwitchCommand;
 import arena.zarizeni.monster_switch.MonsterSwitchListener;
 import arena.zarizeni.monster_switch.ResetSwitchCommand;
 import arena.zarizeni.uloziste_dat.UlozisteMap;
-import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class MainArena extends JavaPlugin {
 
     @Override
     public void onEnable() {
 
-        UlozisteMap uloziste = new UlozisteMap(getDataFolder());
+      //  UlozisteMap uloziste = new UlozisteMap("src/main/resources/zarizeni.gson");
+      //  UlozisteMap uloziste = new UlozisteMap("target/classes/zarizeni.gson");
+
         //var uloziste = new UlozisteBlok(world, this);
 
         var world = getServer().getWorlds().get(0);
         var monstraStav = new MonstraStav(world);
+        UlozisteMap uloziste = new UlozisteMap(getDataFolder(), world);
 
         var tovarnaNaZombiky = new TovarnaNaZombiky(getDataFolder());
         var tovarnaNaVlny = new VlnyMonster(tovarnaNaZombiky);

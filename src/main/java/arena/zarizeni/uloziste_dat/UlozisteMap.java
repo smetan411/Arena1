@@ -1,44 +1,36 @@
 package arena.zarizeni.uloziste_dat;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.google.gson.reflect.TypeToken;
 import org.bukkit.Location;
+import org.bukkit.World;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.ref.Reference;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class UlozisteMap implements Uloziste {
+    private final static String NAZEV_SOUBORU_GSON = "zarizeni.gson";
     private final Map<String, Set<Location>> lokaceZarizeni;
-    private final String NAZEV_SOUBORU_GSON = "zarizeni.gson";
     private Gson gson = new Gson();
+    private final World world;
+
+    private final File datovyAdresar;
 
     //  funguje jako mapa - klíčem je např. název dveře, k němu přijde seznam lokací
-    public UlozisteMap(File datovyAdresar) {
-        // nahrajeme data ze souboru
-        Path cestaKSouboruDat
-                = Path.of(datovyAdresar.getPath(), NAZEV_SOUBORU_GSON);
-        if (Files.notExists(cestaKSouboruDat)) {
-            lokaceZarizeni = new HashMap<>();
-        } else {
-            lokaceZarizeni = nactiDataZeSouboru();
-        }
-         gson = new GsonBuilder()
-                 .registerTypeAdapter(Reference.class, new ReferenceTypeAdapter())
-                 .setPrettyPrinting()
-                 .create();
+    public UlozisteMap(File datovyAdresar, World world) {
+        this.datovyAdresar = datovyAdresar;
+        this.lokaceZarizeni = new HashMap<>();
+        this.world = world;
+        nactiDataZeSouboru();
     }
 
     // mapa - přidá lokaci ke klíči - např. umístěním dveří na konkrétní místo
@@ -86,28 +78,34 @@ public class UlozisteMap implements Uloziste {
         }
     }
 
-    private Map<String, Set<Location>> nactiDataZeSouboru() {
+    private void nactiDataZeSouboru() {
+        Path cestaKSouboruSUlozistem = Path.of(datovyAdresar.getPath(), NAZEV_SOUBORU_GSON);
         try {
-            FileReader reader = new FileReader(NAZEV_SOUBORU_GSON);
-            return gson.fromJson(reader, Map.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            if (Files.notExists(cestaKSouboruSUlozistem)) {
+                Files.createFile(cestaKSouboruSUlozistem);
+            }
+            String ulozisteString = Files.readString(cestaKSouboruSUlozistem);
+            TypeToken<HashMap<String, Set<LocationUloziste>>> typeToken = new TypeToken<>() {
+            };
+            Map<String, Set<LocationUloziste>> data = gson.fromJson(ulozisteString, typeToken.getType());
+            Map<String, Set<Location>> result = new HashMap<>();
+            for (var entry : data.entrySet()) {
+                Set<LocationUloziste> locations = entry.getValue();
+                Set<Location> resultLocations = locations.stream()
+                        .map(loc -> new Location(world, loc.x(), loc.y(), loc.z()))
+                        .collect(Collectors.toSet());
+                result.put(entry.getKey(), resultLocations);
+            }
+            lokaceZarizeni.putAll(result);
+        }
+        catch (IOException e){
+            throw new RuntimeException("soubor s ulozistem nelze nacist", e);
         }
     }
 
-    private static class ReferenceTypeAdapter extends TypeAdapter<Reference<?>> {
-        @Override
-        public void write(JsonWriter out, Reference<?> value) throws IOException {
-            // You may customize the serialization logic here
-            // For example, you can serialize the referent or ignore it
-            out.nullValue();
-        }
+    private record LocationUloziste(long x, long y, long z) {
 
-        @Override
-        public Reference<?> read(JsonReader in) throws IOException {
-            // You may customize the deserialization logic here
-            // For example, you can read the serialized data and construct the Reference object
-            return null;
-        }
     }
 }
+
+
