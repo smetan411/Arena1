@@ -14,7 +14,12 @@ import arena.zarizeni.monster_switch.InicializaceMonsterSwitche;
 import arena.zarizeni.monster_switch.MonsterSwitchCommand;
 import arena.zarizeni.monster_switch.MonsterSwitchListener;
 import arena.zarizeni.monster_switch.ResetSwitchCommand;
-import arena.zarizeni.uloziste_dat.UlozisteMap;
+import arena.zarizeni.uloziste_dat.Uloziste;
+import arena.zarizeni.uloziste_dat.UlozisteBlok;
+import arena.zarizeni.uloziste_dat.UlozisteJson;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MainArena extends JavaPlugin {
@@ -22,14 +27,17 @@ public class MainArena extends JavaPlugin {
     @Override
     public void onEnable() {
 
-      //  UlozisteMap uloziste = new UlozisteMap("src/main/resources/zarizeni.gson");
-      //  UlozisteMap uloziste = new UlozisteMap("target/classes/zarizeni.gson");
-
-        //var uloziste = new UlozisteBlok(world, this);
 
         var world = getServer().getWorlds().get(0);
         var monstraStav = new MonstraStav(world);
-        UlozisteMap uloziste = new UlozisteMap(getDataFolder(), world);
+        FileConfiguration configuration = getConfig();
+
+        Uloziste uloziste;
+        if (configuration.getBoolean("uloziteDoBloku")) {
+            uloziste = new UlozisteBlok(world, this);
+        } else {
+            uloziste = new UlozisteJson(getDataFolder(), world);
+        }
 
         var tovarnaNaZombiky = new TovarnaNaZombiky(getDataFolder());
         var tovarnaNaVlny = new VlnyMonster(tovarnaNaZombiky);

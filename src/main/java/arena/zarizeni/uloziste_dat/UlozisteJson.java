@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-public class UlozisteMap implements Uloziste {
+public class UlozisteJson implements Uloziste {
     private final static String NAZEV_SOUBORU_GSON = "zarizeni.gson";
     private final Map<String, Set<Location>> lokaceZarizeni;
     private Gson gson = new Gson();
@@ -26,7 +26,7 @@ public class UlozisteMap implements Uloziste {
     private final File datovyAdresar;
 
     //  funguje jako mapa - klíčem je např. název dveře, k němu přijde seznam lokací
-    public UlozisteMap(File datovyAdresar, World world) {
+    public UlozisteJson(File datovyAdresar, World world) {
         this.datovyAdresar = datovyAdresar;
         this.lokaceZarizeni = new HashMap<>();
         this.world = world;
@@ -71,8 +71,8 @@ public class UlozisteMap implements Uloziste {
     }
 
     private void ulozDataDoSouboru() {
-        try (FileWriter writer = new FileWriter(NAZEV_SOUBORU_GSON)) {
-            gson.toJson(lokaceZarizeni, writer);
+        try (FileWriter writer = new FileWriter(Path.of(datovyAdresar.getPath(), NAZEV_SOUBORU_GSON).toFile())) {
+            gson.toJson(transformBeforeWrite(lokaceZarizeni), writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,19 +88,40 @@ public class UlozisteMap implements Uloziste {
             TypeToken<HashMap<String, Set<LocationUloziste>>> typeToken = new TypeToken<>() {
             };
             Map<String, Set<LocationUloziste>> data = gson.fromJson(ulozisteString, typeToken.getType());
-            Map<String, Set<Location>> result = new HashMap<>();
-            for (var entry : data.entrySet()) {
-                Set<LocationUloziste> locations = entry.getValue();
-                Set<Location> resultLocations = locations.stream()
-                        .map(loc -> new Location(world, loc.x(), loc.y(), loc.z()))
-                        .collect(Collectors.toSet());
-                result.put(entry.getKey(), resultLocations);
-            }
-            lokaceZarizeni.putAll(result);
+            lokaceZarizeni.putAll(transformAfterRead(data));
         }
         catch (IOException e){
             throw new RuntimeException("soubor s ulozistem nelze nacist", e);
         }
+    }
+
+    private Map<String, Set<Location>> transformAfterRead(Map<String, Set<LocationUloziste>> nactenaDataZUloziste)
+    {
+        if (nactenaDataZUloziste == null) {
+            return Map.of();
+        }
+        Map<String, Set<Location>> result = new HashMap<>();
+        for (var entry : nactenaDataZUloziste.entrySet()) {
+            Set<LocationUloziste> locations = entry.getValue();
+            Set<Location> resultLocations = locations.stream()
+                    .map(loc -> new Location(world, loc.x(), loc.y(), loc.z()))
+                    .collect(Collectors.toSet());
+            result.put(entry.getKey(), resultLocations);
+        }
+        return result;
+    }
+
+    private Map<String, Set<LocationUloziste>> transformBeforeWrite(Map<String, Set<Location>> dataZUloziste)
+    {
+        Map<String, Set<LocationUloziste>> result = new HashMap<>();
+        for (var entry : dataZUloziste.entrySet()) {
+            Set<Location> locations = entry.getValue();
+            Set<LocationUloziste> resultLocations = locations.stream()
+                    .map(loc -> new LocationUloziste(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()))
+                    .collect(Collectors.toSet());
+            result.put(entry.getKey(), resultLocations);
+        }
+        return result;
     }
 
     private record LocationUloziste(long x, long y, long z) {
