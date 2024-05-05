@@ -17,7 +17,7 @@ public class TovarnaNaZbrane {
         var itemMeta = trainingSword.getItemMeta();
         itemMeta.setUnbreakable(true);
         itemMeta.setDisplayName("Training Sword");
-        AttributeModifier attributeModifier = new AttributeModifier("Damage", 2, AttributeModifier.Operation.ADD_NUMBER);
+        AttributeModifier attributeModifier = new AttributeModifier("Damage", 4, AttributeModifier.Operation.ADD_NUMBER);
         itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, attributeModifier);
         trainingSword.setItemMeta(itemMeta);
         return trainingSword;
@@ -28,7 +28,7 @@ public class TovarnaNaZbrane {
         var itemMeta = normalSword.getItemMeta();
         itemMeta.setUnbreakable(true);
         itemMeta.setDisplayName("Normal Sword");
-        AttributeModifier attributeModifier = new AttributeModifier("Damage", 3, AttributeModifier.Operation.ADD_NUMBER);
+        AttributeModifier attributeModifier = new AttributeModifier("Damage", 6, AttributeModifier.Operation.ADD_NUMBER);
         itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, attributeModifier);
         normalSword.setItemMeta(itemMeta);
         return normalSword;
@@ -39,7 +39,7 @@ public class TovarnaNaZbrane {
         var itemMeta = proSword.getItemMeta();
         itemMeta.setUnbreakable(true);
         itemMeta.setDisplayName("Pro Sword");
-        AttributeModifier attributeModifier = new AttributeModifier("Damage", 4, AttributeModifier.Operation.ADD_NUMBER);
+        AttributeModifier attributeModifier = new AttributeModifier("Damage", 8, AttributeModifier.Operation.ADD_NUMBER);
         itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, attributeModifier);
         proSword.setItemMeta(itemMeta);
         return proSword;
@@ -50,7 +50,7 @@ public class TovarnaNaZbrane {
         var itemMeta = gladiatorSword.getItemMeta();
         itemMeta.setUnbreakable(true);
         itemMeta.setDisplayName("Gladiator Sword");
-        AttributeModifier attributeModifier = new AttributeModifier("Damage", 5, AttributeModifier.Operation.ADD_NUMBER);
+        AttributeModifier attributeModifier = new AttributeModifier("Damage", 10, AttributeModifier.Operation.ADD_NUMBER);
         itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, attributeModifier);
         gladiatorSword.setItemMeta(itemMeta);
         return gladiatorSword;
@@ -67,7 +67,7 @@ public class TovarnaNaZbrane {
 
 
 
-    //ARTEFAKTY
+    //magicke mece - artefakty
     public ItemStack vyrobFrozenSword() {
         var frozenSword = new ItemStack(Material.DIAMOND_SWORD);
         var itemMeta = frozenSword.getItemMeta();
@@ -90,6 +90,44 @@ public class TovarnaNaZbrane {
         return healingSword;
     }
 
+    //levne artefakty
+    public ItemStack vyrobBojovouSekeru() {
+        var bojovaSekera = new ItemStack(Material.IRON_AXE, 1);
+        var itemMeta = bojovaSekera.getItemMeta();
+        itemMeta.setUnbreakable(true);
+        itemMeta.setDisplayName("Battle Axe");
+        AttributeModifier sila = new AttributeModifier("Damage", 12, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, sila);
+        AttributeModifier rychlost = new AttributeModifier("Speed", -3, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, rychlost);
+        bojovaSekera.setItemMeta(itemMeta);
+        return bojovaSekera;
+    }
 
+    public ItemStack vyrobValecnouSekeru() {
+        var valecnaSekera = new ItemStack(Material.NETHERITE_AXE, 1);
+        var itemMeta = valecnaSekera.getItemMeta();
+        itemMeta.setUnbreakable(true);
+        itemMeta.setDisplayName("War Axe");
+        AttributeModifier sila = new AttributeModifier("Damage", 30, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, sila);
+        AttributeModifier rychlost = new AttributeModifier("Speed", -3.3, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, rychlost);
+        valecnaSekera.setItemMeta(itemMeta);
+        return valecnaSekera;
+    }
+
+    public ItemStack vyrobNuz() {
+        var nuz = new ItemStack(Material.IRON_SHOVEL, 1);
+        var itemMeta = nuz.getItemMeta();
+        itemMeta.setUnbreakable(true);
+        itemMeta.setDisplayName("Nuz");
+        AttributeModifier sila = new AttributeModifier("Damage", 5, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, sila);
+        AttributeModifier rychlost = new AttributeModifier("Speed", 15, AttributeModifier.Operation.ADD_NUMBER);
+        itemMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, rychlost);
+        nuz.setItemMeta(itemMeta);
+        return nuz;
+    }
 }
 

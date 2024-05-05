@@ -20,42 +20,42 @@ public class OdmenaZaZabitiMonstra implements Listener {
     }
 
     @EventHandler
-    public void deathOfMonsters(EntityDeathEvent deathEvent) {
+    public void deathOfMonsters(EntityDeathEvent event) {
 
-        if (monstraStav.jeMonstrum(deathEvent.getEntity())) {
-            deathEvent.getDrops().clear();
+        if (monstraStav.jeMonstrum(event.getEntity())) {
+            event.getDrops().clear();
 
-            String jmenoMonstra = deathEvent.getEntity().getName();
+            String jmenoMonstra = event.getEntity().getName();
             switch (jmenoMonstra) {
                 case "Zombie LVL 1":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET));
                     break;
                 case "Zombie LVL 2":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 2));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 2));
                     break;
                 case "Zombie LVL 3":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 4));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 4));
                     break;
                 case "Zombie LVL 4":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 6));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 6));
                     break;
                 case "Zombie LVL 5":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 8));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 8));
                     break;
                 case "Zombie LVL 6":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 10));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 10));
                     break;
                 case "Zombie LVL 7":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 12));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 12));
                     break;
                 case "Zombie LVL 8":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 20));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 20));
                     break;
                 case "Zombie LVL 9":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 40));
+                    event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, 40));
                     break;
                 case "Zombie LVL 10":
-                    deathEvent.getDrops().add(new ItemStack(Material.GOLD_BLOCK, 5));
+                    event.getDrops().add(new ItemStack(Material.GOLD_BLOCK, 5));
                     break;
             }
         }

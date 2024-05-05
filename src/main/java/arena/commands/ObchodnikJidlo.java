@@ -25,7 +25,7 @@ public final class ObchodnikJidlo implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender instanceof Player)) return false;
-        var player = (Player) commandSender;
+        Player player = (Player) commandSender;
         if (player.isOp()) {
             var trader = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
             trader.setVillagerType(Villager.Type.PLAINS);

@@ -17,8 +17,8 @@ public class SmrtMonstra implements Listener {
     }
 
     @EventHandler
-    public void deathOfMonsters(EntityDeathEvent deathEvent) {
-        if (monstraStav.jeMonstrum(deathEvent.getEntity()))
+    public void smrtMonster(EntityDeathEvent event) {
+        if (monstraStav.jeMonstrum(event.getEntity()))
             if (monstraStav.jsouMonstraMrtva()) {
                 dvere.otevriDvere();
             }

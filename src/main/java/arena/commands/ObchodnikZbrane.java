@@ -111,15 +111,23 @@ public final class ObchodnikZbrane implements CommandExecutor {
             MerchantRecipe frozenSword = new MerchantRecipe(tovarnaNaZbrane.vyrobFrozenSword(), 9999);
             frozenSword.addIngredient(new ItemStack(Material.GOLD_INGOT, 10));
 
-            //kouzelne zbrane
             MerchantRecipe healingSword = new MerchantRecipe(tovarnaNaZbrane.vyrobHealingSword(), 9999);
             healingSword.addIngredient(new ItemStack(Material.GOLD_INGOT, 12));
 
-            trader.setRecipes(Lists.newArrayList
+            MerchantRecipe bojovaSekera = new MerchantRecipe(tovarnaNaZbrane.vyrobBojovouSekeru(), 9999);
+            healingSword.addIngredient(new ItemStack(Material.GOLD_NUGGET, 25));
+
+            MerchantRecipe valecnaSekera = new MerchantRecipe(tovarnaNaZbrane.vyrobValecnouSekeru(), 9999);
+            healingSword.addIngredient(new ItemStack(Material.GOLD_INGOT, 8));
+
+            MerchantRecipe nuz = new MerchantRecipe(tovarnaNaZbrane.vyrobNuz(), 9999);
+            healingSword.addIngredient(new ItemStack(Material.GOLD_NUGGET, 20));
+
+           trader.setRecipes(Lists.newArrayList
                     (trainingSword, trainingHelmet, trainingChestPlate, trainingLeggins, trainingBoots, normalSword, chainMaleHelmet,
                             chainMaleChestPlate, chainMaleLeggins, chainMaleBoots, proSword, plateHelmet, chestPlate, plateLeggins,
                             plateBoots, gladiatorSword, gladiatorHelmet, gladiatorChestPlate, gladiatorLeggins, gladiatorBoots, stit,
-                            frozenSword, healingSword));
+                            frozenSword, healingSword, bojovaSekera, valecnaSekera, nuz ));
 
         }
         return true;
